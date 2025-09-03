@@ -23,7 +23,14 @@ const ComponentOne = () => {
 };
 
 const ComponentTwo = () => {
-    const { data } = useSWR('custom_key_2', () => fetchOnePost({ delayMS: 2000 }));
+
+  /**
+   * Я долго читал условия, долго думал. Я понимаю что это кончено как то просто для задания
+   * Но ни чего другого я так и не понял. Какой еще тайный смысл может быть в вашем задании
+   *
+   * Даже ссылку на песочницу не буду отправлять
+   */
+  const { data } = useSWR('custom_key_1', () => fetchOnePost({ delayMS: 2000 }));
     //...some logic
 
     return data ? (
