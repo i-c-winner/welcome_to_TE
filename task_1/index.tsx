@@ -1,4 +1,4 @@
-import { Component } from 'react';
+import { Component, memo, PureComponent } from 'react';
 
 type IUser = {
     name: string
@@ -10,22 +10,35 @@ type IProps = {
 }
 
 // functional component
-const FirstComponent = ({ name, age }: IUser) => (
+const FirstComponent = memo(({ name, age }: IUser) => (
     <div>
         my name is {name}, my age is {age}
     </div>
-);
+));
 
 // functional component
 // Этот компонент является необязательным для выполнения задания, но продемонстрирует глубину знаний в React.
-const SecondComponent = ({ user: { name, age } }: IProps) => (
+
+/**
+ * так как memo проводит поверхностную сверку, необходимо добавить сверку на всю глубину пропсов
+ */
+const SecondComponent = memo(({ user: { name, age } }: IProps) => (
     <div>
         my name is {name}, my age is {age}
     </div>
-);
+), changeProps);
 
+function changeProps(prevProps: IProps, nextProps: IProps): boolean {
+  /**
+   * тут логика на проверку пропсов
+   * возвращает true or false
+   *
+   */
+  return true;
+}
 // class component
-class ThirdComponent extends Component<IUser> {
+
+class ThirdComponent extends PureComponent<IUser> {
     render() {
         return (
             <div>
@@ -36,8 +49,18 @@ class ThirdComponent extends Component<IUser> {
 }
 
 // class component
+/**
+ * та же ситуация с глубиной проверки пропсов
+ */
 class FourthComponent extends Component<IProps> {
-    render() {
+  shouldComponentUpdate(nextProps: Readonly<IProps>, nextState: Readonly<{}>, nextContext: any): boolean {
+    /**
+     *  тут логика проверки
+     */
+    return true; 
+  }
+
+  render() {
         return (
             <div>
                 my name is {this.props.user.name}, my age is {this.props.user.age}
