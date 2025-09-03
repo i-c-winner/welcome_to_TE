@@ -57,7 +57,7 @@ class FourthComponent extends Component<IProps> {
     /**
      *  тут логика проверки
      */
-    return true; 
+    return true;
   }
 
   render() {

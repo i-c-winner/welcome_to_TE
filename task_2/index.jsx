@@ -1,7 +1,10 @@
 import { Fragment, memo } from 'react';
 
 const MainComponent = () => {
-    const makeLog = () => console.log('hi from MainComponent'); // function to make logs from MainComponent
+  /**
+   * необходимо обернуть эту функцию. потому что она каждый раз рендериться заново и уходит как новый пропс
+   */
+    const makeLog = useMemo(() => console.log('hi from MainComponent'),[]); // function to make logs from MainComponent
 
     return (
         <Fragment>
