@@ -1,49 +1,55 @@
+// ФАЙЛ ДЛЯ РЕДАКТИРОВАНИЯ И ТЕСТИРОВАНИЯ КОМПОНЕНТОВ ИЗ ТЕСТОВОГО ЗАДАНИЯ
+
+/**
+ * Так себе опитимизация получилась. Просто задание такое досточно широкое
+ * Ну я понял что идея вашего вопроса - можно ли вместо трех компонентов использовать
+ * один универсальный
+ */
+
 import { useState } from "react";
 
-
-export const Block1 = ({ mouseEnterCallbak, imgSrc, imgAlt }) => {
+export const Block1 = ({
+                         mouseEnterCallbak,
+                         imgSrc,
+                         imgAlt,
+                         content,
+                         userData,
+                       }) => {
   const [isActive, setActive] = useState(false);
 
-  const mouseEnterHandler = () => {
+  function mouseEnterHandler(text) {
     setActive(true);
-    mouseEnterCallbak();
-  };
+    mouseEnterCallbak(text);
+  }
 
   return (
-    <div onMouseEnter={mouseEnterHandler} className={isActive ? "active" : ""}>
-      <img src={imgSrc} alt={imgAlt} />
-    </div>
-  );
-};
-
-export const Block2 = ({ mouseEnterCallbak, content }) => {
-  const [isActive, setActive] = useState(false);
-
-  const mouseEnterHandler = () => {
-    setActive(true);
-    mouseEnterCallbak();
-  };
-
-  return (
-    <div onMouseEnter={mouseEnterHandler} className={isActive ? "active" : ""}>
-      <p>{content}</p>
-    </div>
-  );
-};
-
-export const Block3 = ({ mouseEnterCallbak, userData }) => {
-  const [isActive, setActive] = useState(false);
-
-  const mouseEnterHandler = () => {
-    setActive(true);
-    mouseEnterCallbak();
-  };
-
-  return (
-    <div onMouseEnter={mouseEnterHandler} className={isActive ? "active" : ""}>
-      <address>
-        country: {userData.country}, street: {userData.street}
-      </address>
+    <div>
+      {imgSrc && (
+        <div
+          onMouseEnter={() => mouseEnterHandler("Hello from Block1")}
+          className={isActive ? "active" : ""}
+        >
+          <img src={imgSrc} alt={imgAlt} />
+        </div>
+      )}
+      {content && (
+        <div
+          onMouseEnter={() => mouseEnterHandler("Hello from Block2 ")}
+          className={isActive ? "active" : ""}
+        >
+          <p>{content}</p>
+        </div>
+      )}
+      {userData && (
+        <div
+          onMouseEnter={() => mouseEnterHandler("Hello from Block3")}
+          className={isActive ? "active" : ""}
+        >
+          <address>
+            country: {userData.country}, street: {userData.street}
+          </address>
+        </div>
+      )}
     </div>
   );
 };
